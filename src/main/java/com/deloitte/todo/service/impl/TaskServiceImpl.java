@@ -1,16 +1,15 @@
-package com.deloitte.service.impl;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+package com.deloitte.todo.service.impl;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.deloitte.model.Task;
-import com.deloitte.repository.TaskRepository;
-import com.deloitte.service.TaskService;
+import com.deloitte.todo.model.Task;
+import com.deloitte.todo.repository.TaskRepository;
+import com.deloitte.todo.service.TaskService;
 
 @Service
 public class TaskServiceImpl implements TaskService {

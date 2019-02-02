@@ -1,4 +1,4 @@
-package com.deloitte.exceptions;
+package com.deloitte.todo.exceptions;
 
 public class TodoDatabaseAccessException extends Exception {
 

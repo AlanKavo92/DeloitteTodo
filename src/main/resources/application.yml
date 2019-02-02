@@ -1,0 +1,16 @@
+spring:
+  mvc:
+    view:
+      prefix: /
+      suffix: .jsp
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+  messages:
+    basename: validation
+
+logging:
+  level:
+    org.springframework.web: ERROR
+    com.deloitte: DEBUG

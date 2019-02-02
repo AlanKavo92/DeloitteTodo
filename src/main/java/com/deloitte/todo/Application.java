@@ -1,4 +1,4 @@
-package com.deloitte;
+package com.deloitte.todo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

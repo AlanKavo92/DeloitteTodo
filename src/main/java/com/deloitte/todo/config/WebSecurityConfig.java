@@ -1,4 +1,4 @@
-package com.deloitte.config;
+package com.deloitte.todo.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

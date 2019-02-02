@@ -1,18 +1,17 @@
-package com.deloitte.service.impl;
+package com.deloitte.todo.service.impl;
+
+import java.util.HashSet;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.deloitte.model.User;
-import com.deloitte.repository.RoleRepository;
-import com.deloitte.repository.UserRepository;
-import com.deloitte.service.UserService;
-
-import java.util.HashSet;
+import com.deloitte.todo.model.User;
+import com.deloitte.todo.repository.RoleRepository;
+import com.deloitte.todo.repository.UserRepository;
+import com.deloitte.todo.service.UserService;
 
 @Service
 public class UserServiceImpl implements UserService {

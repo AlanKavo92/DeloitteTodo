@@ -1,8 +1,10 @@
-package com.deloitte.service.impl;
+package com.deloitte.todo.service.impl;
+
+import java.util.HashSet;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -12,12 +14,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.deloitte.model.Role;
-import com.deloitte.model.User;
-import com.deloitte.repository.UserRepository;
-
-import java.util.HashSet;
-import java.util.Set;
+import com.deloitte.todo.model.Role;
+import com.deloitte.todo.model.User;
+import com.deloitte.todo.repository.UserRepository;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {

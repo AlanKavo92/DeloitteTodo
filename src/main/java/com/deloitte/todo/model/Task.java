@@ -1,4 +1,4 @@
-package com.deloitte.model;
+package com.deloitte.todo.model;
 
 import javax.persistence.*;
 

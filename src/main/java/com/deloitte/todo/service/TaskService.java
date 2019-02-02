@@ -1,8 +1,8 @@
-package com.deloitte.service;
+package com.deloitte.todo.service;
 
 import java.util.List;
 
-import com.deloitte.model.Task;
+import com.deloitte.todo.model.Task;
 
 public interface TaskService {
 	List<Task> getTasksForUser(Long id);
