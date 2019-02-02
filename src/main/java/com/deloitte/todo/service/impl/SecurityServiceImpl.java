@@ -24,8 +24,11 @@ public class SecurityServiceImpl implements SecurityService{
 
     @Override
     public String findLoggedInUsername() {
+    	logger.debug("finding username of the user thats logged in");
+
         Object userDetails = SecurityContextHolder.getContext().getAuthentication().getDetails();
         if (userDetails instanceof UserDetails) {
+        	logger.debug(String.format("username %s is logged in", ((UserDetails)userDetails).getUsername()));
             return ((UserDetails)userDetails).getUsername();
         }
 
@@ -34,6 +37,8 @@ public class SecurityServiceImpl implements SecurityService{
 
     @Override
     public void autologin(String username, String password) {
+    	logger.debug("attepmting to auto-login");
+
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, password, userDetails.getAuthorities());
 
@@ -41,7 +46,7 @@ public class SecurityServiceImpl implements SecurityService{
 
         if (usernamePasswordAuthenticationToken.isAuthenticated()) {
             SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-            logger.debug(String.format("Auto login %s successfully!", username));
+            logger.debug(String.format("auto-login %s successfully!", username));
         }
     }
 }

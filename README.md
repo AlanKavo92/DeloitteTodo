@@ -8,7 +8,6 @@
 ## How to start the application
 ```mvn clean spring-boot:run```
 
-
 ##### Requirements:
 
 ### Base requirements

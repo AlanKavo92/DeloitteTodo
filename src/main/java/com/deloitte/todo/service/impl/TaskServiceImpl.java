@@ -22,18 +22,21 @@ public class TaskServiceImpl implements TaskService {
 	@Override
 	public List<Task> getTasksForUser(Long id) {
 		logger.debug("getting all tasks for user id: " + id);
+
 		return taskRepository.findAllByUserId(id);
 	}
 
 	@Override
 	public void addTask(Task task) {
 		logger.debug("saving task: " + task.toString());
+
 		taskRepository.save(task);
 	}
 
 	@Override
 	public void removeTask(Task task) {
 		logger.debug("removing task: " + task.toString());
+
 		taskRepository.delete(task);
 	}
 }

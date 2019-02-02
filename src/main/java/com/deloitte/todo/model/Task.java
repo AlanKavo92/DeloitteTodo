@@ -9,7 +9,6 @@ import java.util.Date;
 @Entity
 @Table(name = "task")
 public class Task {
-	
     @Id
     @Column(name="task_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
