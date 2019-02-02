@@ -23,6 +23,9 @@ public class User {
     @ManyToMany
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
+    
+    @OneToMany(mappedBy="user")
+    private Set<Task> tasks;
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
@@ -35,4 +38,6 @@ public class User {
     public void setPasswordConfirm(String passwordConfirm) { this.passwordConfirm = passwordConfirm; }
     public Set<Role> getRoles() { return roles; }
     public void setRoles(Set<Role> roles) { this.roles = roles; }
+	public Set<Task> getTasks() { return tasks; }
+	public void setTasks(Set<Task> tasks) { this.tasks = tasks; }
 }
