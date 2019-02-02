@@ -15,9 +15,9 @@
 - [ ] Simple online TODO list
 - [x] Web Interface
 - [ ] Cross-browser support
-- [ ] Stores data in an in-memory database
-- [ ] Built using J2EE
-- [ ] Limited to J2EE and Open-source Frameworks
+- [x] Stores data in an in-memory database
+- [x] Built using J2EE
+- [x] Limited to J2EE and Open-source Frameworks
 
 ### Auth requirements
 - [ ] Supports multiple users
