@@ -1,4 +1,9 @@
+.springBeans
+LICENSE
+target
+out
+.settings
 .classpath
 .project
-target/
-.settings/
+.idea
+*.iml

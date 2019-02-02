@@ -14,15 +14,15 @@
 ### Base requirements
 - [ ] Simple online TODO list
 - [x] Web Interface
-- [ ] Cross-browser support
+- [x] Cross-browser support
 - [x] Stores data in an in-memory database
 - [x] Built using J2EE
 - [x] Limited to J2EE and Open-source Frameworks
 
 ### Auth requirements
-- [ ] Supports multiple users
-- [ ] User can sign in using a unique login and password
-- [ ] Login is secure
+- [x] Supports multiple users
+- [x] User can sign in using a unique login and password
+- [x] Login is secure
 
 ### Task requirements
 - [ ] All task are persisted (even with logout)
