@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.deloitte.todo.exceptions.DatabaseAccessException;
 import com.deloitte.todo.model.Task;
 import com.deloitte.todo.model.User;
 import com.deloitte.todo.repository.TaskRepository;
@@ -26,51 +27,66 @@ public class TaskServiceImpl implements TaskService {
 	private static final Logger logger = LoggerFactory.getLogger(TaskServiceImpl.class);
 	
 	@Autowired
-	UserService userService;
+	private UserService userService;
 	
 	@Autowired
-	SecurityService securityService;
+	private SecurityService securityService;
 
 	@Autowired
-	TaskRepository taskRepository;
+	private TaskRepository taskRepository;
 
 	@Override
 	public void addTask(String desc) {
 		logger.debug("saving task");
 
-		User user = userService.findByUsername(securityService.findLoggedInUsername());
-
-        Task t = new Task();
-        t.setDesc(desc);
-        t.setCrtDt(new Date());
-        t.setLastUpdDt(new Date());
-        t.setUser(user);
-        t.setIsCompleted(false);
-
-		taskRepository.save(t);
+		try {
+			User user = userService.findByUsername(securityService.findLoggedInUsername());
+	
+	        Task t = new Task();
+	        t.setDesc(desc);
+	        t.setCrtDt(new Date());
+	        t.setLastUpdDt(new Date());
+	        t.setUser(user);
+	        t.setIsCompleted(false);
+	
+			taskRepository.save(t); 
+		}
+		catch(Exception ex) {
+			logger.debug("error saving task");
+		}
 	}
 	
 	@Override
 	public void updateTask(Long id, String desc) {
 		logger.debug("updating task");
-		
-		Task t = taskRepository.findOneById(id);
-        
-		if(t != null) {
-        	t.setDesc(desc);
-        	t.setLastUpdDt(new Date());
-    		taskRepository.save(t);
-        }
+
+		try {
+			Task t = taskRepository.findOneById(id);
+	        
+			if(t != null) {
+	        	t.setDesc(desc);
+	        	t.setLastUpdDt(new Date());
+	    		taskRepository.save(t);
+			}
+		}
+		catch(Exception ex) {
+			logger.error("error updating task");
+		}
 	}
 
 	@Override
 	public void removeTask(Long id) {
 		logger.debug("removing task");
-		
-		Task t = taskRepository.findOneById(id);
-		
-		if(t != null) {
-			taskRepository.delete(id);
+
+		try {
+			Task t = taskRepository.findOneById(id);
+			
+			if(t != null) {
+				taskRepository.delete(id);
+			}
+		}
+		catch(Exception ex) {
+			logger.error("error removing task");
 		}
 	}
 	
@@ -78,12 +94,17 @@ public class TaskServiceImpl implements TaskService {
 	public void toggleCompleted(Long id, Boolean isCompleted) {
 		logger.debug("toggling completed");
 
-		Task t = taskRepository.findOneById(id);
-		
-		if(t != null) {
-			boolean completed = (isCompleted == null || isCompleted == Boolean.FALSE) ? false : true;
-            t.setIsCompleted(completed);
-            taskRepository.save(t);
+		try {
+			Task t = taskRepository.findOneById(id);
+			
+			if(t != null) {
+				boolean completed = (isCompleted == null || isCompleted == Boolean.FALSE) ? false : true;
+	            t.setIsCompleted(completed);
+	            taskRepository.save(t);
+			}
+		}
+		catch(Exception ex) {
+			logger.error("error toggling completed");
 		}
 	}
 
@@ -91,35 +112,67 @@ public class TaskServiceImpl implements TaskService {
 	public List<Task> getAllTasksForUser(Long id) {
 		logger.debug("getting tasks for user id: " + id.toString());
 
-		return taskRepository.findAllByUserId(id);
+		List<Task> tasks = null;
+		
+		try {
+			tasks = taskRepository.findAllByUserId(id);
+		}
+		catch(Exception ex) {
+			logger.error("error getting all tasks for user");
+		}
+
+		return tasks;
 	}
 
 	@Override
 	public List<Task> getActiveTasksForUser(Long id) {
 		logger.debug("getting tasks for user id: " + id.toString());
 
-		return taskRepository.findAllByUserIdAndIsCompleted(id, false);
+		List<Task> tasks = null;
+		
+		try {
+			tasks = taskRepository.findAllByUserIdAndIsCompleted(id, false);
+		}
+		catch(Exception ex) {
+			logger.error("error getting all tasks for user");
+		}
+
+		return tasks;
 	}
 
 	@Override
 	public List<Task> getCompletedTasksForUser(Long id) {
 		logger.debug("getting tasks for user id: " + id.toString());
+		
+		List<Task> tasks = null;
+		
+		try {
+			tasks = taskRepository.findAllByUserIdAndIsCompleted(id, true);
+		}
+		catch(Exception ex) {
+			logger.error("error getting all tasks for user");
+		}
 
-		return taskRepository.findAllByUserIdAndIsCompleted(id, true);
+		return tasks;
 	}
 
 	@Override
 	public void clearCompleted() {
 		logger.debug("clearing completed tasks");
+		
+		try {
+			User user = userService.findByUsername(securityService.findLoggedInUsername());
 
-		User user = userService.findByUsername(securityService.findLoggedInUsername());
-
-        List<Task> tasks = taskRepository.findAllByUserIdAndIsCompleted(user.getId(), true);
-
-        for(Task task : tasks) {
-            if(task.getIsCompleted()) {
-                taskRepository.delete(task);
-            }
-        }
+			List<Task> tasks = taskRepository.findAllByUserIdAndIsCompleted(user.getId(), true);
+			
+	        for(Task task : tasks) {
+	            if(task.getIsCompleted()) {
+	                taskRepository.delete(task);
+	            }
+	        }
+		}
+		catch(Exception ex) {
+			logger.error("error getting all tasks for user");
+		}
 	}
 }

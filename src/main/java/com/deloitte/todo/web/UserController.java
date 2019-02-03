@@ -33,6 +33,9 @@ public class UserController {
 
     @Autowired
     private UserValidator userValidator;
+    
+    private static final String LOGIN_ERROR = "Your username and password is invalid";
+    private static final String LOGOUT_MSG = "You have been logged out successfully";
 
     /**
      * GET request for /registration
@@ -93,10 +96,10 @@ public class UserController {
     	ModelAndView modelAndView = new ModelAndView();
 
         if (error != null)
-        	modelAndView.addObject("error", "Your username and password is invalid.");
+        	modelAndView.addObject("error", LOGIN_ERROR);
 
         if (logout != null)
-        	modelAndView.addObject("message", "You have been logged out successfully.");
+        	modelAndView.addObject("message", LOGOUT_MSG);
 
         modelAndView.setViewName("login");
 

@@ -35,6 +35,10 @@ public class TaskController {
 
     @Autowired
     private SecurityService securityService;
+    
+    private static final String MODEL_ATTR_TASKS = "tasks";
+    private static final String MODEL_ATTR_FILTER = "filter";
+    private static final String MODEL_ATTR_STATS = "stats";
 
      /**
      * GET request for /, /todo or /all
@@ -49,9 +53,9 @@ public class TaskController {
     	User user = userService.findByUsername(securityService.findLoggedInUsername());
 
     	List<Task> tasks = taskService.getAllTasksForUser(user.getId());
-    	modelAndView.addObject("tasks", tasks);
-    	modelAndView.addObject("filter", "all");
-    	modelAndView.addObject("stats", determineStats(tasks));
+    	modelAndView.addObject(MODEL_ATTR_TASKS, tasks);
+    	modelAndView.addObject(MODEL_ATTR_FILTER, "all");
+    	modelAndView.addObject(MODEL_ATTR_STATS, determineStats(tasks));
 
     	modelAndView.setViewName("todo");
 
@@ -71,9 +75,9 @@ public class TaskController {
     	User user = userService.findByUsername(securityService.findLoggedInUsername());
 
     	List<Task> tasks = taskService.getActiveTasksForUser(user.getId());
-    	modelAndView.addObject("tasks", tasks);
-    	modelAndView.addObject("filter", "active");
-    	modelAndView.addObject("stats", determineStats(tasks));
+    	modelAndView.addObject(MODEL_ATTR_TASKS, tasks);
+    	modelAndView.addObject(MODEL_ATTR_FILTER, "active");
+    	modelAndView.addObject(MODEL_ATTR_STATS, determineStats(tasks));
 
     	modelAndView.setViewName("todo");
 
@@ -93,9 +97,9 @@ public class TaskController {
     	User user = userService.findByUsername(securityService.findLoggedInUsername());
 
     	List<Task> tasks = taskService.getCompletedTasksForUser(user.getId());
-    	modelAndView.addObject("tasks", tasks);
-    	modelAndView.addObject("filter", "completed");
-    	modelAndView.addObject("stats", determineStats(tasks));
+    	modelAndView.addObject(MODEL_ATTR_TASKS, tasks);
+    	modelAndView.addObject(MODEL_ATTR_FILTER, "completed");
+    	modelAndView.addObject(MODEL_ATTR_STATS, determineStats(tasks));
 
     	modelAndView.setViewName("todo");
 
@@ -200,6 +204,7 @@ public class TaskController {
      */
     private TaskStats determineStats(List<Task> tasks) {
     	logger.debug("calculating task stats");
+
     	TaskStats taskStats = new TaskStats();
 
         for(Task task : tasks) {

@@ -13,6 +13,7 @@
 	<meta name="author" content="Alan Kavanagh">
 	<title>TODO</title>
 	<link href="${contextPath}/resources/css/todo.css" rel="stylesheet">
+
 </head>
 
 <body>
@@ -21,7 +22,7 @@
 			<form id="logoutForm" method="POST" action="${contextPath}/logout">
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 			</form>
-			<h2> Welcome ${pageContext.request.userPrincipal.name} | <a onclick="document.forms['logoutForm'].submit()">Logout</a> </h2>
+			<h2> Welcome ${pageContext.request.userPrincipal.name} | <button onclick="document.forms['logoutForm'].submit()">Logout</button> </h2>
 		</c:if>
 	</div>
 
