@@ -11,7 +11,7 @@
 ##### Requirements:
 
 ### Base requirements
-- [ ] Simple online TODO list
+- [x] Simple online TODO list
 - [x] Web Interface
 - [x] Cross-browser support
 - [x] Stores data in an in-memory database
@@ -24,13 +24,13 @@
 - [x] Login is secure
 
 ### Task requirements
-- [ ] All task are persisted (even with logout)
+- [x] All task are persisted (even with logout)
 - [ ] Each task displays when it was last updated
-- [ ] Each task displays a description
-- [ ] User can view his/her task list
-- [ ] User can add/remove tasks
-- [ ] User can mark task as complete
-- [ ] User can mark task as incomplete
+- [x] Each task displays a description
+- [x] User can view his/her task list
+- [x] User can add/remove tasks
+- [x] User can mark task as complete
+- [x] User can mark task as incomplete
 
 ### Performance requirements
 - [ ] Consider performance
