@@ -15,6 +15,11 @@ import com.deloitte.todo.Application;
 import com.deloitte.todo.model.Role;
 import com.deloitte.todo.repository.RoleRepository;
 
+/**
+ * Role Repository Integration Tests
+ * 
+ * @author Alan Kavanagh
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration

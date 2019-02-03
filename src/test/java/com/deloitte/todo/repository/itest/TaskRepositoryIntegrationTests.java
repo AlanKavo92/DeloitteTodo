@@ -25,9 +25,13 @@ import com.deloitte.todo.model.Role;
 import com.deloitte.todo.model.Task;
 import com.deloitte.todo.model.User;
 import com.deloitte.todo.repository.TaskRepository;
-import com.deloitte.todo.repository.UserRepository;
 import com.deloitte.todo.service.UserService;
 
+/**
+ * Task Repository Integration Tests
+ * 
+ * @author Alan Kavanagh
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration

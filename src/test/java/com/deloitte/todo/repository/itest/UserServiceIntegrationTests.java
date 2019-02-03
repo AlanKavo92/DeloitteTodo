@@ -3,7 +3,6 @@ package com.deloitte.todo.repository.itest;
 import static org.junit.Assert.assertNull;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashSet;
 
 import org.junit.After;
@@ -25,6 +24,11 @@ import com.deloitte.todo.model.User;
 import com.deloitte.todo.service.TaskService;
 import com.deloitte.todo.service.UserService;
 
+/**
+ * User Service Integration Tests
+ * 
+ * @author Alan Kavanagh
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
@@ -57,8 +61,6 @@ public class UserServiceIntegrationTests {
         u.setRoles(new HashSet<>(roles));
         
         userService.save(u);
-
-        taskService.addTask("DoWork()");
     }
     
     @After
