@@ -48,7 +48,7 @@
 									<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 									<input class="toggle" name="toggle" type="checkbox" <c:if test="${task.isCompleted}">checked</c:if> onchange="javascript:document.getElementById('toggleForm_${status.count}').submit();">
 								</form>
-								<label>${task.desc}&emsp;&emsp;&emsp;&emsp;&emsp;-&emsp;&emsp;&emsp;&emsp;&emsp;${task.lastUpdDt}</label>
+								<label>${task.desc} - ${task.lastUpdDt}</label>
 								<form action="<c:url value="delete"/>" method="POST">
 									<input type="hidden" name="id" value="${task.id}" /> 
 									<input type="hidden" name="filter" value="${filter}" />
