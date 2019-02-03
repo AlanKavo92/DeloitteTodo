@@ -1,6 +1,5 @@
 package com.deloitte.todo.web;
 
-import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -61,11 +60,11 @@ public class UserController {
         	modelAndView.setViewName("registration");
         }
         else {
-        	logger.debug("userForm successfully validated - return welcome");
+        	logger.debug("userForm successfully validated - return todo");
 
         	userService.save(userForm);
         	securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
-        	modelAndView.setViewName("redirect:/welcome");
+        	modelAndView.setViewName("redirect:/todo");
         }
 
         return modelAndView;
@@ -88,36 +87,53 @@ public class UserController {
         return modelAndView;
     }
 
-    @RequestMapping(value = {"/", "/welcome"}, method = RequestMethod.GET)
-    public ModelAndView welcome() {
-    	logger.debug("GET request received for /welcome");
+    @RequestMapping(value = {"/", "/todo", "/all"}, method = RequestMethod.GET)
+    public ModelAndView todo() {
+    	logger.debug("GET request received for /, /all or /todo");
 
     	ModelAndView modelAndView = new ModelAndView();
 
     	User user = userService.findByUsername(securityService.findLoggedInUsername());
+    	
+    	 List<Task> taskItems = taskService.getAllTasksForUser(user.getId());
+    	 modelAndView.addObject("toDoItems", taskItems);
+    	 modelAndView.addObject("filter", "all");
 
-    	Task t1 = new Task();
-    	t1.setDesc("Shopping");
-    	t1.setCrtDt(new Date());
-    	t1.setLastUpdDt(new Date());
-    	t1.setUser(user);
-    	t1.setChecked(false);
-    	taskService.addTask(t1);
+    	modelAndView.setViewName("todo");
 
-    	Task t2 = new Task();
-    	t2.setDesc("Laundry");
-    	t2.setCrtDt(new Date());
-    	t2.setLastUpdDt(new Date());
-    	t2.setUser(user);
-    	t2.setChecked(false);
-    	taskService.addTask(t2);
+    	return modelAndView;
+    }
+    
+    @RequestMapping(value = {"/active"}, method = RequestMethod.GET)
+    public ModelAndView active() {
+    	logger.debug("GET request received for /active");
 
-    	List<Task> tasks = taskService.getTasksForUser(user.getId());
-    	for(Task task: tasks) {
-    		logger.info(task.getDesc());
-    	}
+    	ModelAndView modelAndView = new ModelAndView();
 
-    	modelAndView.setViewName("welcome");
+    	User user = userService.findByUsername(securityService.findLoggedInUsername());
+    	
+    	 List<Task> taskItems = taskService.getActiveTasksForUser(user.getId());
+    	 modelAndView.addObject("toDoItems", taskItems);
+    	 modelAndView.addObject("filter", "active");
+
+    	modelAndView.setViewName("todo");
+
+    	return modelAndView;
+    }
+    
+    @RequestMapping(value = {"/completed"}, method = RequestMethod.GET)
+    public ModelAndView completed() {
+    	logger.debug("GET request received for /completed");
+
+    	ModelAndView modelAndView = new ModelAndView();
+
+    	User user = userService.findByUsername(securityService.findLoggedInUsername());
+    	
+    	 List<Task> taskItems = taskService.getCompletedTasksForUser(user.getId());
+    	 modelAndView.addObject("toDoItems", taskItems);
+    	 modelAndView.addObject("filter", "completed");
+
+    	modelAndView.setViewName("todo");
 
     	return modelAndView;
     }

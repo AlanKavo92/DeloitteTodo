@@ -20,13 +20,6 @@ public class TaskServiceImpl implements TaskService {
 	TaskRepository taskRepository;
 
 	@Override
-	public List<Task> getTasksForUser(Long id) {
-		logger.debug("getting all tasks for user id: " + id);
-
-		return taskRepository.findAllByUserId(id);
-	}
-
-	@Override
 	public void addTask(Task task) {
 		logger.debug("saving task: " + task.toString());
 
@@ -38,5 +31,26 @@ public class TaskServiceImpl implements TaskService {
 		logger.debug("removing task: " + task.toString());
 
 		taskRepository.delete(task);
+	}
+
+	@Override
+	public List<Task> getAllTasksForUser(Long id) {
+		logger.debug("getting tasks for user id: " + id.toString());
+
+		return taskRepository.findAllByUserId(id);
+	}
+
+	@Override
+	public List<Task> getActiveTasksForUser(Long id) {
+		logger.debug("getting tasks for user id: " + id.toString());
+
+		return taskRepository.findAllByUserIdIsCheckedFalse(id);
+	}
+
+	@Override
+	public List<Task> getCompletedTasksForUser(Long id) {
+		logger.debug("getting tasks for user id: " + id.toString());
+
+		return taskRepository.findAllByUserIdIsCheckedTrue(id);
 	}
 }

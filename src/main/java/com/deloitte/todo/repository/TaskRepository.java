@@ -10,6 +10,7 @@ import com.deloitte.todo.model.User;
 
 @Repository
 public interface TaskRepository extends JpaRepository<Task, Long> {
-	List<Task> findAllByUser(User user);
 	List<Task> findAllByUserId(Long userId);
+	List<Task> findAllByUserIdIsCheckedFalse(Long userId);
+	List<Task> findAllByUserIdIsCheckedTrue(Long userId);
 }

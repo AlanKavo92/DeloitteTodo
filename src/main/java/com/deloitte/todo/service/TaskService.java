@@ -5,7 +5,10 @@ import java.util.List;
 import com.deloitte.todo.model.Task;
 
 public interface TaskService {
-	List<Task> getTasksForUser(Long id);
+	List<Task> getAllTasksForUser(Long id);
+	List<Task> getActiveTasksForUser(Long id);
+	List<Task> getCompletedTasksForUser(Long id);
+
 	void addTask(Task task);
 	void removeTask(Task task);
 }
