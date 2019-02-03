@@ -45,7 +45,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().antMatchers("/todo", "/all", "/active", "/completed", "/registration", "/resources/**").permitAll().anyRequest().authenticated()
 			.and().formLogin().loginPage("/login").permitAll().and().logout().permitAll()
 			.and().authorizeRequests().antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources", "/configuration/security", "/swagger-ui.html", "/webjars/**","/swagger-resources/configuration/ui","/swagger-ui.html").permitAll().anyRequest().authenticated()
-			.and().authorizeRequests().antMatchers("/h2-console/**").permitAll().anyRequest().authenticated();
+			.and().authorizeRequests().antMatchers("/h2-console/**").permitAll().anyRequest().authenticated()
+			.and().csrf().ignoringAntMatchers("/h2-console/**")
+            .and().headers().frameOptions().sameOrigin();
 	}
 
 	@Autowired

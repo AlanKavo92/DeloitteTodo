@@ -1,5 +1,7 @@
 package com.deloitte.todo.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -11,4 +13,6 @@ import com.deloitte.todo.model.Role;
  * @author Alan Kavanagh
  */
 @Repository
-public interface RoleRepository extends JpaRepository<Role, Long>{}
+public interface RoleRepository extends JpaRepository<Role, Long> {
+	List<Role> findOneByName(String name);
+}

@@ -43,6 +43,7 @@ public class UserController {
     	logger.debug("GET request received for /registration");
 
         ModelAndView modelAndView = new ModelAndView();
+
         modelAndView.addObject("userForm", new User());
         modelAndView.setViewName("registration");
 
