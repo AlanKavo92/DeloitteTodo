@@ -35,14 +35,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		logger.debug("configuring http security");
-
-		http.authorizeRequests().antMatchers("/todo", "/all", "/active", "/completed", "/registration", "/resources/**", "/h2-console/**").permitAll().anyRequest().authenticated()
-				.and().formLogin().loginPage("/login").permitAll().and().logout().permitAll();
+		logger.debug("configuring http security for application");
+		/* 
+		 * Enables HTTP access to login/logout without authorisation
+		 * Enables HTTP access to all Task Controller with authorisation
+		 * Enables HTTP access to Swagger UI with authorisation
+		 * Enables HTTP access to H2-Console with authorisation 
+		 * */
+		http.authorizeRequests().antMatchers("/todo", "/all", "/active", "/completed", "/registration", "/resources/**").permitAll().anyRequest().authenticated()
+			.and().formLogin().loginPage("/login").permitAll().and().logout().permitAll()
+			.and().authorizeRequests().antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources", "/configuration/security", "/swagger-ui.html", "/webjars/**","/swagger-resources/configuration/ui","/swagger-ui.html").permitAll().anyRequest().authenticated()
+			.and().authorizeRequests().antMatchers("/h2-console/**").permitAll().anyRequest().authenticated();
 	}
 
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+		/*
+		 * Applies password encoder to userDetailsService
+		 * ToDo: Apply ROLE enforcement
+		 */
 		auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
 	}
 }
