@@ -8,7 +8,14 @@
 ## How to start the application
 ```mvn clean spring-boot:run```
 
-##### Requirements:
+## Swagger API (Available at http://localhost:8008/DeloitteTodo/swagger-ui.html#)
+![](https://github.com/AlanKavo92/DeloitteTodo/blob/master/Swagger-API.PNG)
+
+## H2-Console (Available at http://localhost:8008/DeloitteTodo/h2-console)
+![](https://github.com/AlanKavo92/DeloitteTodo/blob/master/h2-console.PNG)
+
+
+## Requirements:
 
 ### Base requirements
 - [x] Simple online TODO list
@@ -33,15 +40,15 @@
 - [x] User can mark task as incomplete
 
 ### Performance requirements
-- [ ] Consider performance
+- [x] Consider performance
 
 ### Deliverables requirements
 - [x] Packaged as WAR file
 - [x] Deploys to Tomcat (7 or 8)
-- [ ] Documentation
+- [x] Documentation
 
 ### Documentation
-- [ ] Why you chose the solution over others?
-- [ ] Any design patterns used?
-- [ ] Additional requirements?
-- [ ] Additional comments?
+- [x] Why you chose the solution over others?
+- [x] Any design patterns used?
+- [x] Additional requirements?
+- [x] Additional comments?
