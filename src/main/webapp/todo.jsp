@@ -29,7 +29,7 @@
 	<div class="container">
 		<section id="todoapp">
 			<header id="header">
-				<h1>todo tasks</h1>
+				<h1>todo</h1>
 				<form action="<c:url value="insert"/>" method="POST">
 					<input type="hidden" name="filter" value="${filter}" /> 
 					<input id="new-todo" name="desc" placeholder="What needs to be done?" autofocus>
