@@ -29,7 +29,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		logger.debug("configuring http security");
-		http.authorizeRequests().antMatchers("/resources/**", "/registration", "/h2-console/**").permitAll().anyRequest().authenticated()
+		http.authorizeRequests().antMatchers("/todo", "/all", "/active", "/completed", "/registration", "/resources/**", "/h2-console/**").permitAll().anyRequest().authenticated()
 				.and().formLogin().loginPage("/login").permitAll().and().logout().permitAll();
 	}
 

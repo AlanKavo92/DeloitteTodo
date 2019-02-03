@@ -13,5 +13,5 @@ public interface TaskService {
 	void updateTask(Long id, String desc);
 	void removeTask(Long id);
 	
-	void toggleChecked(Long id, Boolean isChecked);
+	void toggleCompleted(Long id, Boolean isCompleted);
 }

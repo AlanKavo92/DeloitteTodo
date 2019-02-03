@@ -40,7 +40,7 @@ public class TaskServiceImpl implements TaskService {
         t.setCrtDt(new Date());
         t.setLastUpdDt(new Date());
         t.setUser(user);
-        t.setChecked(false);
+        t.setIsCompleted(false);
 
 		taskRepository.save(t);
 	}
@@ -70,17 +70,16 @@ public class TaskServiceImpl implements TaskService {
 	}
 	
 	@Override
-	public void toggleChecked(Long id, Boolean isChecked) {
-		logger.debug("toggling checked");
+	public void toggleCompleted(Long id, Boolean isCompleted) {
+		logger.debug("toggling completed");
 
 		Task t = taskRepository.findOneById(id);
 		
 		if(t != null) {
-			boolean completed = (isChecked == null || isChecked == Boolean.FALSE) ? false : true;
-            t.setChecked(completed);
+			boolean completed = (isCompleted == null || isCompleted == Boolean.FALSE) ? false : true;
+            t.setIsCompleted(completed);
             taskRepository.save(t);
 		}
-
 	}
 
 	@Override
@@ -94,14 +93,13 @@ public class TaskServiceImpl implements TaskService {
 	public List<Task> getActiveTasksForUser(Long id) {
 		logger.debug("getting tasks for user id: " + id.toString());
 
-		return taskRepository.findAllByUserIdAndIsChecked(id, false);
+		return taskRepository.findAllByUserIdAndIsCompleted(id, false);
 	}
 
 	@Override
 	public List<Task> getCompletedTasksForUser(Long id) {
 		logger.debug("getting tasks for user id: " + id.toString());
 
-		return taskRepository.findAllByUserIdAndIsChecked(id, true);
+		return taskRepository.findAllByUserIdAndIsCompleted(id, true);
 	}
-
 }

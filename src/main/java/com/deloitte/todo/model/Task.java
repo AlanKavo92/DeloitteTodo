@@ -31,8 +31,8 @@ public class Task {
 	@JoinColumn(name="user_id", nullable=false)
 	private User user;
 	
-	@Column(name="is_checked")
-	private boolean isChecked;
+	@Column(name="is_completed")
+	private boolean isCompleted;
 	
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
@@ -44,6 +44,6 @@ public class Task {
 	public void setLastUpdDt(Date lastUpdDt) { this.lastUpdDt = lastUpdDt; }
 	public User getUser() { return user; }
 	public void setUser(User user) { this.user = user; }
-	public boolean isChecked() { return isChecked; }
-	public void setChecked(boolean isChecked) {	this.isChecked = isChecked; }
+	public boolean getIsCompleted() { return isCompleted; }
+	public void setIsCompleted(boolean isCompleted) { this.isCompleted = isCompleted; }
 }

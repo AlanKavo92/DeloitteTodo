@@ -10,6 +10,6 @@ import com.deloitte.todo.model.Task;
 @Repository
 public interface TaskRepository extends JpaRepository<Task, Long> {
 	List<Task> findAllByUserId(Long userId);
-	List<Task> findAllByUserIdAndIsChecked(Long userId, Boolean isChecked);
+	List<Task> findAllByUserIdAndIsCompleted(Long userId, Boolean isCompleted);
 	Task findOneById(Long taskId);
 }

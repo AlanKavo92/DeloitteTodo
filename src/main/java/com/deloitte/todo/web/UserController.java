@@ -100,12 +100,11 @@ public class UserController {
     	ModelAndView modelAndView = new ModelAndView();
 
     	User user = userService.findByUsername(securityService.findLoggedInUsername());
-    	
+
     	List<Task> tasks = taskService.getAllTasksForUser(user.getId());
     	modelAndView.addObject("tasks", tasks);
     	modelAndView.addObject("filter", "all");
     	modelAndView.addObject("stats", determineStats(tasks));
-
 
     	modelAndView.setViewName("todo");
 
@@ -119,12 +118,11 @@ public class UserController {
     	ModelAndView modelAndView = new ModelAndView();
 
     	User user = userService.findByUsername(securityService.findLoggedInUsername());
-    	
+
     	List<Task> tasks = taskService.getActiveTasksForUser(user.getId());
     	modelAndView.addObject("tasks", tasks);
     	modelAndView.addObject("filter", "active");
     	modelAndView.addObject("stats", determineStats(tasks));
-
 
     	modelAndView.setViewName("todo");
 
@@ -138,12 +136,11 @@ public class UserController {
     	ModelAndView modelAndView = new ModelAndView();
 
     	User user = userService.findByUsername(securityService.findLoggedInUsername());
-    	
+
     	List<Task> tasks = taskService.getCompletedTasksForUser(user.getId());
     	modelAndView.addObject("tasks", tasks);
     	modelAndView.addObject("filter", "completed");
     	modelAndView.addObject("stats", determineStats(tasks));
-
 
     	modelAndView.setViewName("todo");
 
@@ -192,7 +189,7 @@ public class UserController {
 
     	ModelAndView modelAndView = new ModelAndView();
 
-    	taskService.toggleChecked(id, toggle);
+    	taskService.toggleCompleted(id, toggle);
 
     	modelAndView.setViewName("redirect:" + filter);
         return modelAndView;    
@@ -200,27 +197,28 @@ public class UserController {
 
     private TaskStats determineStats(List<Task> tasks) {
     	logger.debug("calculating task stats");
-    	TaskStats toDoListStats = new TaskStats();
+    	TaskStats taskStats = new TaskStats();
 
         for(Task task : tasks) {
-            if(task.isChecked()) {
-                toDoListStats.addCompleted();
+            if(task.getIsCompleted()) {
+                taskStats.addCompleted();
             }
             else {
-                toDoListStats.addActive();
+                taskStats.addActive();
             }
         }
-        return toDoListStats;
+        return taskStats;
     }
 
-    @Data
-    @Getter
-    @Setter
     public static class TaskStats {
         private int active;
         private int completed;
         private void addActive() { active++; }
         private void addCompleted() { completed++; }
-        public int getAll() { return active + completed; }
+        public int getActive() { return active; }
+		public void setActive(int active) { this.active = active; }
+		public int getCompleted() { return completed; }
+		public void setCompleted(int completed) { this.completed = completed; }
+		public int getAll() { return active + completed; }
     }
 }
