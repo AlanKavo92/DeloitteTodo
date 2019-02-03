@@ -12,7 +12,7 @@
 ![](https://github.com/AlanKavo92/DeloitteTodo/blob/master/Swagger-API.PNG)
 
 ## H2-Console (Available at http://localhost:8008/DeloitteTodo/h2-console)
-![](https://github.com/AlanKavo92/DeloitteTodo/blob/master/h2-console.PNG)
+![](https://github.com/AlanKavo92/DeloitteTodo/blob/master/h2-console.png)
 
 
 ## Requirements:
