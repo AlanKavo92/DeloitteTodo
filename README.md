@@ -9,11 +9,10 @@
 ```mvn clean spring-boot:run```
 
 ## Swagger API (Available at http://localhost:8008/DeloitteTodo/swagger-ui.html#/user-controller when authenticated)
-[[https://github.com/AlanKavo92/DeloitteTodo/blob/master/Swagger-API.PNG|alt=test]]
-[[https://github.com/username/repository/blob/master/img/octocat.png|alt=octocat]]
+![https://github.com/AlanKavo92/DeloitteTodo/blob/master/Swagger-API.PNG]
 
 ## H2-Console (Available at http://localhost:8008/DeloitteTodo/h2-console when authenticated
-[[https://github.com/AlanKavo92/DeloitteTodo/blob/master/h2-console.PNG]]
+![https://github.com/AlanKavo92/DeloitteTodo/blob/master/h2-console.PNG]
 
 ##### Requirements:
 
