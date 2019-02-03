@@ -18,6 +18,11 @@ import com.deloitte.todo.model.Role;
 import com.deloitte.todo.model.User;
 import com.deloitte.todo.repository.UserRepository;
 
+/**
+ * User Details Service Implementation
+ * 
+ * @author Alan Kavanagh
+ */
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService{
 

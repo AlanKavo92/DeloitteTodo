@@ -4,6 +4,11 @@ import java.util.List;
 
 import com.deloitte.todo.model.Task;
 
+/**
+ * Task Service Interface
+ * 
+ * @author Alan Kavanagh
+ */
 public interface TaskService {
 	List<Task> getAllTasksForUser(Long id);
 	List<Task> getActiveTasksForUser(Long id);

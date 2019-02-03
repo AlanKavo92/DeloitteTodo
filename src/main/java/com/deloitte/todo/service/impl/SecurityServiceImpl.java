@@ -12,6 +12,11 @@ import org.springframework.stereotype.Service;
 
 import com.deloitte.todo.service.SecurityService;
 
+/**
+ * Security Service Implementation
+ * 
+ * @author Alan Kavanagh
+ */
 @Service
 public class SecurityServiceImpl implements SecurityService {
 

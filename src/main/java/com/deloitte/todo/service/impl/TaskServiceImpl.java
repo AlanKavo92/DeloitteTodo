@@ -15,6 +15,11 @@ import com.deloitte.todo.service.SecurityService;
 import com.deloitte.todo.service.TaskService;
 import com.deloitte.todo.service.UserService;
 
+/**
+ * Task Service Implementation
+ * 
+ * @author Alan Kavanagh
+ */
 @Service
 public class TaskServiceImpl implements TaskService {
 

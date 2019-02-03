@@ -5,5 +5,10 @@ import org.springframework.stereotype.Repository;
 
 import com.deloitte.todo.model.Role;
 
+/**
+ * Role JPA Repository
+ * 
+ * @author Alan Kavanagh
+ */
 @Repository
 public interface RoleRepository extends JpaRepository<Role, Long>{}

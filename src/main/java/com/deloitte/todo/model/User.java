@@ -3,6 +3,11 @@ package com.deloitte.todo.model;
 import javax.persistence.*;
 import java.util.Set;
 
+/**
+ * User Entity
+ * 
+ * @author Alan Kavanagh
+ */
 @Entity
 @Table(name = "user")
 public class User {

@@ -1,9 +1,5 @@
 package com.deloitte.todo.validator;
 
-import com.deloitte.todo.model.User;
-import com.deloitte.todo.service.UserService;
-import com.deloitte.todo.service.impl.SecurityServiceImpl;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +8,14 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
+import com.deloitte.todo.model.User;
+import com.deloitte.todo.service.UserService;
+
+/**
+ * User Validator
+ * 
+ * @author Alan Kavanagh
+ */
 @Component
 public class UserValidator implements Validator {
 

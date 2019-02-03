@@ -20,14 +20,15 @@ import com.deloitte.todo.service.TaskService;
 import com.deloitte.todo.service.UserService;
 import com.deloitte.todo.validator.UserValidator;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-
+/**
+ * TodoController
+ * 
+ * @author Alan Kavanagh
+ */
 @Controller
-public class UserController {
+public class TodoController {
 
-    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+    private static final Logger logger = LoggerFactory.getLogger(TodoController.class);
 
     @Autowired
     private UserService userService;
@@ -41,6 +42,10 @@ public class UserController {
     @Autowired
     private UserValidator userValidator;
 
+    /**
+     * GET request for /registration
+     * @return registration.jsp
+     */
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public ModelAndView registration() {
     	logger.debug("GET request received for /registration");
@@ -52,6 +57,12 @@ public class UserController {
         return modelAndView;
     }
 
+    /**
+     * POST request for /registration
+     * @param userForm: Information submitted on form
+     * @param bindingResult: Validation check
+     * @return todo.jsp
+     */
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public ModelAndView registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult) {
     	logger.debug("POST request received for /registration");
@@ -76,6 +87,12 @@ public class UserController {
         return modelAndView;
     }
 
+    /**
+     * GET request for /login
+     * @param error: Validation check
+     * @param logout: Logout check
+     * @return login.jsp
+     */
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView login(String error, String logout) {
     	logger.debug("GET request received for /login");
@@ -93,6 +110,10 @@ public class UserController {
         return modelAndView;
     }
 
+    /**
+     * GET request for /, /todo or /all
+     * @return todo.jsp
+     */
     @RequestMapping(value = {"/", "/todo", "/all"}, method = RequestMethod.GET)
     public ModelAndView todo() {
     	logger.debug("GET request received for /, /all or /todo");
@@ -110,7 +131,11 @@ public class UserController {
 
     	return modelAndView;
     }
-    
+
+    /**
+     * GET request for /active
+     * @return todo.jsp
+     */
     @RequestMapping(value = {"/active"}, method = RequestMethod.GET)
     public ModelAndView active() {
     	logger.debug("GET request received for /active");
@@ -128,7 +153,11 @@ public class UserController {
 
     	return modelAndView;
     }
-    
+
+    /**
+     * GET request for /completed
+     * @return todo.jsp
+     */
     @RequestMapping(value = {"/completed"}, method = RequestMethod.GET)
     public ModelAndView completed() {
     	logger.debug("GET request received for /completed");
@@ -146,7 +175,13 @@ public class UserController {
 
     	return modelAndView;
     }
-    
+
+    /**
+     * POST request for /insert
+     * @param desc: Task description
+     * @param filter: Filter for UI display
+     * @return todo.jsp (filter)
+     */
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
     public ModelAndView insertTask(@RequestParam String desc, @RequestParam String filter) {
     	logger.debug("POST request received for /insert");
@@ -159,6 +194,13 @@ public class UserController {
         return modelAndView;    
     }
 
+	/**
+	 * POST request for /update
+	 * @param id: Task ID
+	 * @param desc: Task description
+	 * @param filter: Filter for UI display
+	 * @return todo.jsp (filter)
+	 */
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public ModelAndView updateTask(@RequestParam Long id, @RequestParam String desc, @RequestParam String filter) {
     	logger.debug("POST request received for /update");
@@ -171,6 +213,12 @@ public class UserController {
         return modelAndView;
     }
 
+    /**
+     * POST request for /delete
+     * @param id: Task ID
+     * @param filter: Filter for UI display
+     * @return todo.jsp (filter)
+     */
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public ModelAndView deleteTask(@RequestParam Long id, @RequestParam String filter) {
     	logger.debug("POST request received for /delete");
@@ -183,6 +231,13 @@ public class UserController {
         return modelAndView;
     }
 
+    /**
+     * POST request for /toggleStatus
+     * @param id: Task ID
+     * @param toggle: Toggle for Task Completed
+     * @param filter: Filter for UI display
+     * @return todo.jsp (filter)
+     */
     @RequestMapping(value = "/toggleStatus", method = RequestMethod.POST)
     public ModelAndView toggleStatus(@RequestParam Long id, @RequestParam(required = false) Boolean toggle, @RequestParam String filter) {
     	logger.debug("POST request received for /toggleStatus");
@@ -195,6 +250,11 @@ public class UserController {
         return modelAndView;    
     }
 
+    /**
+     * Calculates the statistics for all tasks, active tasks and completed tasks
+     * @param tasks: Tasks to gather statistics for
+     * @return taskStats (TaskStatus)
+     */
     private TaskStats determineStats(List<Task> tasks) {
     	logger.debug("calculating task stats");
     	TaskStats taskStats = new TaskStats();
@@ -210,6 +270,10 @@ public class UserController {
         return taskStats;
     }
 
+    /**
+     * Model for Task statistics
+     * @author Alan Kavanagh
+     */
     public static class TaskStats {
         private int active;
         private int completed;

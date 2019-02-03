@@ -7,6 +7,11 @@ import org.springframework.stereotype.Repository;
 
 import com.deloitte.todo.model.Task;
 
+/**
+ * Task JPA Repository
+ * 
+ * @author Alan Kavanagh
+ */
 @Repository
 public interface TaskRepository extends JpaRepository<Task, Long> {
 	List<Task> findAllByUserId(Long userId);

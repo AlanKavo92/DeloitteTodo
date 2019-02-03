@@ -9,6 +9,11 @@ import org.springframework.boot.context.web.SpringBootServletInitializer;
 
 import com.deloitte.todo.config.WebSecurityConfig;
 
+/**
+ * Application Main
+ * 
+ * @author Alan Kavanagh
+ */
 @SpringBootApplication
 public class Application extends SpringBootServletInitializer {
 

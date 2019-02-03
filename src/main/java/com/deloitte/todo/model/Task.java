@@ -6,6 +6,11 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Date;
 
+/**
+ * Task Entity
+ * 
+ * @author Alan Kavanagh
+ */
 @Entity
 @Table(name = "task")
 public class Task {
