@@ -1,5 +1,7 @@
 package com.deloitte.todo.service;
 
+import org.springframework.cache.annotation.Cacheable;
+
 /**
  * Security Service Interface
  * 
@@ -7,5 +9,6 @@ package com.deloitte.todo.service;
  */
 public interface SecurityService {
     String findLoggedInUsername();
+	@Cacheable("autologin")
     void autologin(String username, String password);
 }
