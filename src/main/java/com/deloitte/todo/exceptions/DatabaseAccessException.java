@@ -16,7 +16,6 @@ public class DatabaseAccessException extends Exception {
 	
 	private static final Logger logger = LoggerFactory.getLogger(DatabaseAccessException.class);
 
-
 	public DatabaseAccessException(String errorMessage) {
 		super(errorMessage);
 		logger.error(errorMessage);

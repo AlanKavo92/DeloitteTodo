@@ -1,9 +1,9 @@
 package com.deloitte.todo.service.impl;
 
-import com.deloitte.todo.model.User;
-import com.deloitte.todo.repository.RoleRepository;
-import com.deloitte.todo.repository.UserRepository;
-import com.deloitte.todo.service.UserService;
+import java.util.ArrayList;
+import java.util.HashSet;
+
+import javax.validation.ConstraintViolationException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,7 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
+import com.deloitte.todo.model.Role;
+import com.deloitte.todo.model.User;
+import com.deloitte.todo.repository.RoleRepository;
+import com.deloitte.todo.repository.UserRepository;
+import com.deloitte.todo.service.UserService;
 
 /**
  * User Service Implementation
@@ -35,11 +39,18 @@ public class UserServiceImpl implements UserService {
     @Override
     public void save(User user) {
     	logger.debug("saving user");
-
+        
+        ArrayList<Role> rs = new ArrayList<Role>();
+        rs.add(roleRepository.findOneByName("USER"));
+        
+        user.setRoles(new HashSet<>(rs));
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        user.setRoles(new HashSet<>(roleRepository.findOneByName("USER")));
-
-        userRepository.save(user);
+        try {
+        	userRepository.save(user);
+        }
+        catch (ConstraintViolationException ex) {
+        	logger.error("username already exists");
+        }
     }
 
     @Override
