@@ -42,7 +42,7 @@
 					<c:forEach var="task" items="${tasks}" varStatus="status">
 						<li id="task_${status.count}" class="<c:if test="${task.isCompleted}">completed</c:if>" ondblclick="javascript:document.getElementById('task_${status.count}').className += ' editing';document.getElementById('taskDesc_${status.count}').focus();">
 							<div class="view">
-								<form id="toggleForm_${status.count}" action="<c:url value="toggleStatus"/>" method="POST">
+								<form id="toggleForm_${status.count}" action="<c:url value="toggleCompleted"/>" method="POST">
 									<input type="hidden" name="id" value="${task.id}" /> 
 									<input type="hidden" name="filter" value="${filter}" />
 									<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />

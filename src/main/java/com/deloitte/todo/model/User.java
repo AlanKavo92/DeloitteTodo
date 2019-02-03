@@ -22,6 +22,7 @@ public class User {
     @Column(name="password")
     private String password;
 
+    @Transient
     @Column(name="password_confirm")
     private String passwordConfirm;
 
@@ -38,7 +39,6 @@ public class User {
     public void setUsername(String username) {this.username = username; }
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
-    @Transient
     public String getPasswordConfirm() { return passwordConfirm; }
     public void setPasswordConfirm(String passwordConfirm) { this.passwordConfirm = passwordConfirm; }
     public Set<Role> getRoles() { return roles; }

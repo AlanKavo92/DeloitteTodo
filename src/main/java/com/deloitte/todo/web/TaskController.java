@@ -36,7 +36,6 @@ public class TaskController {
     @Autowired
     private SecurityService securityService;
 
-
      /**
      * GET request for /, /todo or /all
      * @return todo.jsp
@@ -165,8 +164,8 @@ public class TaskController {
      * @param filter: Filter for UI display
      * @return todo.jsp (filter)
      */
-    @RequestMapping(value = "/toggleStatus", method = RequestMethod.POST)
-    public ModelAndView toggleStatus(@RequestParam Long id, @RequestParam(required = false) Boolean toggle, @RequestParam String filter) {
+    @RequestMapping(value = "/toggleCompleted", method = RequestMethod.POST)
+    public ModelAndView toggleCompleted(@RequestParam Long id, @RequestParam(required = false) Boolean toggle, @RequestParam String filter) {
     	logger.debug("POST request received for /toggleStatus");
 
     	ModelAndView modelAndView = new ModelAndView();
