@@ -8,6 +8,9 @@
 ## How to start the application
 ```mvn clean spring-boot:run```
 
+## How to build a .WAR
+```mvn clean install```
+
 ## Swagger API (Available at http://localhost:8008/DeloitteTodo/swagger-ui.html#)
 ![](https://github.com/AlanKavo92/DeloitteTodo/blob/master/Swagger-API.PNG)
 
