@@ -9,6 +9,12 @@ spring:
       ddl-auto: create-drop
   messages:
     basename: validation
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        web-allow-others: true
 
 logging:
   level:

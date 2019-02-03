@@ -1,10 +1,5 @@
 package com.deloitte.todo.web;
 
-import com.deloitte.todo.model.User;
-import com.deloitte.todo.service.SecurityService;
-import com.deloitte.todo.service.UserService;
-import com.deloitte.todo.validator.UserValidator;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +7,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.deloitte.todo.model.User;
+import com.deloitte.todo.service.SecurityService;
+import com.deloitte.todo.service.UserService;
+import com.deloitte.todo.validator.UserValidator;
 
 @Controller
 public class UserController {
@@ -25,40 +26,52 @@ public class UserController {
     private UserValidator userValidator;
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
-    public String registration(Model model) {
-        model.addAttribute("userForm", new User());
-
-        return "registration";
+    public ModelAndView registration() { 
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("userForm", new User());
+        modelAndView.setViewName("registration");
+        return modelAndView;
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model) {
+    public ModelAndView registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult) {
+    	ModelAndView modelAndView = new ModelAndView();
+    	 
         userValidator.validate(userForm, bindingResult);
 
         if (bindingResult.hasErrors()) {
-            return "registration";
+        	 modelAndView.setViewName("registration");
+        }
+        else {
+        	userService.save(userForm);
+        	securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
+        	modelAndView.setViewName("welcome");
         }
 
-        userService.save(userForm);
-
-        securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
-
-        return "redirect:/welcome";
+        return modelAndView;
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login(Model model, String error, String logout) {
+    public ModelAndView login(String error, String logout) {
+    	ModelAndView modelAndView = new ModelAndView();
+
         if (error != null)
-            model.addAttribute("error", "Your username and password is invalid.");
+        	modelAndView.addObject("error", "Your username and password is invalid.");
 
         if (logout != null)
-            model.addAttribute("message", "You have been logged out successfully.");
+        	modelAndView.addObject("message", "You have been logged out successfully.");
 
-        return "login";
+        modelAndView.setViewName("login");
+
+        return modelAndView;
     }
 
     @RequestMapping(value = {"/", "/welcome"}, method = RequestMethod.GET)
-    public String welcome(Model model) {
-        return "welcome";
+    public ModelAndView welcome() {
+    	ModelAndView modelAndView = new ModelAndView();
+
+    	modelAndView.setViewName("welcome");
+
+    	return modelAndView;
     }
 }

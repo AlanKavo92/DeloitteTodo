@@ -38,14 +38,19 @@
         <!-- /Spring Dependencies -->
 
 
-        <!-- HSQL Dependencies -->
+        <!--
         <dependency>
             <groupId>org.hsqldb</groupId>
             <artifactId>hsqldb</artifactId>
             <scope>runtime</scope>
         </dependency>
-        <!-- /HSQL Dependencies -->
-
+        -->
+        
+        <dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>runtime</scope>
+		</dependency>
 
 		<!-- Tomcat Dependency -->
         <dependency>
