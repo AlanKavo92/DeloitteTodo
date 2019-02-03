@@ -107,4 +107,19 @@ public class TaskServiceImpl implements TaskService {
 
 		return taskRepository.findAllByUserIdAndIsCompleted(id, true);
 	}
+
+	@Override
+	public void clearCompleted() {
+		logger.debug("clearing completed tasks");
+
+		User user = userService.findByUsername(securityService.findLoggedInUsername());
+
+        List<Task> tasks = taskRepository.findAllByUserIdAndIsCompleted(user.getId(), true);
+
+        for(Task task : tasks) {
+            if(task.getIsCompleted()) {
+                taskRepository.delete(task);
+            }
+        }
+	}
 }

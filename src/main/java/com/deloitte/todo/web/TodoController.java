@@ -249,6 +249,23 @@ public class TodoController {
     	modelAndView.setViewName("redirect:" + filter);
         return modelAndView;    
     }
+    
+    /**
+     * Removes all completed tasks
+     * @param filter: Filter for UI display
+     * @return todo.jsp (filter)
+     */
+    @RequestMapping(value = "/clearCompleted", method = RequestMethod.POST)
+    public ModelAndView clearCompleted(@RequestParam String filter) {
+    	logger.debug("POST request received for /clearCompleted");
+
+    	ModelAndView modelAndView = new ModelAndView();
+
+    	taskService.clearCompleted();
+
+    	modelAndView.setViewName("redirect:" + filter);
+        return modelAndView; 
+    }
 
     /**
      * Calculates the statistics for all tasks, active tasks and completed tasks

@@ -25,7 +25,7 @@
 
 ### Task requirements
 - [x] All task are persisted (even with logout)
-- [ ] Each task displays when it was last updated
+- [x] Each task displays when it was last updated
 - [x] Each task displays a description
 - [x] User can view his/her task list
 - [x] User can add/remove tasks

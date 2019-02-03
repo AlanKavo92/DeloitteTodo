@@ -11,10 +11,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="Deloitte TODO - TODO">
 	<meta name="author" content="Alan Kavanagh">
-	<title>Create an account</title>
+	<title>TODO</title>
 	<link href="${contextPath}/resources/css/todo.css" rel="stylesheet">
-	<link href="${contextPath}/resources/css/common.css" rel="stylesheet">
-	<link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -30,7 +28,7 @@
 	<div class="container">
 		<section id="todoapp">
 			<header id="header">
-				<h1>todos</h1>
+				<h1>todo tasks</h1>
 				<form action="<c:url value="insert"/>" method="POST">
 					<input type="hidden" name="filter" value="${filter}" /> 
 					<input id="new-todo" name="desc" placeholder="What needs to be done?" autofocus>
@@ -38,7 +36,8 @@
 				</form>
 			</header>
 			<section id="main">
-				<input id="toggle-all" type="checkbox"> <label for="toggle-all">Mark all as complete</label>
+				<input id="toggle-all" type="checkbox"> 
+				<label for="toggle-all">Mark all as complete</label>
 				<ul id="todo-list">
 					<c:forEach var="task" items="${tasks}" varStatus="status">
 						<li id="task_${status.count}" class="<c:if test="${task.isCompleted}">completed</c:if>" ondblclick="javascript:document.getElementById('task_${status.count}').className += ' editing';document.getElementById('taskDesc_${status.count}').focus();">
@@ -49,7 +48,7 @@
 									<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 									<input class="toggle" name="toggle" type="checkbox" <c:if test="${task.isCompleted}">checked</c:if> onchange="javascript:document.getElementById('toggleForm_${status.count}').submit();">
 								</form>
-								<label>${task.desc}</label>
+								<label>${task.desc}&emsp;&emsp;&emsp;&emsp;&emsp;-&emsp;&emsp;&emsp;&emsp;&emsp;${task.lastUpdDt}</label>
 								<form action="<c:url value="delete"/>" method="POST">
 									<input type="hidden" name="id" value="${task.id}" /> 
 									<input type="hidden" name="filter" value="${filter}" />
@@ -68,7 +67,7 @@
 				</ul>
 			</section>
 			<footer id="footer">
-				<c:if test="${stats.all > 0}">
+				<c:if test="${stats.all >= 0}">
 					<span id="todo-count"><strong><c:out value="${stats.active}" /></strong> 
 					<c:choose> 
 					<c:when test="${stats.active == 1}"> item </c:when>
@@ -90,7 +89,7 @@
 			</footer>
 		</section>
 		<div id="info">
-			<p>Double-click to edit a todo</p>
+			<p>Double-click to edit a task</p>
 		</div>
 	</div>
 

@@ -18,5 +18,6 @@ public interface TaskService {
 	void updateTask(Long id, String desc);
 	void removeTask(Long id);
 	
+	void clearCompleted();
 	void toggleCompleted(Long id, Boolean isCompleted);
 }

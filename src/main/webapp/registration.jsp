@@ -12,8 +12,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="Deloitte TODO - Registration">
 	<meta name="author" content="Alan Kavanagh">
-	<title>Create an account</title>
-	<link href="${contextPath}/resources/css/common.css" rel="stylesheet">
+	<title>Register an account</title>
+	<link href="${contextPath}/resources/css/login.css" rel="stylesheet">
 	<link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
