@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import com.deloitte.todo.service.SecurityService;
 
 @Service
-public class SecurityServiceImpl implements SecurityService{
+public class SecurityServiceImpl implements SecurityService {
     @Autowired
     private AuthenticationManager authenticationManager;
 
@@ -26,10 +26,11 @@ public class SecurityServiceImpl implements SecurityService{
     public String findLoggedInUsername() {
     	logger.debug("finding username of the user thats logged in");
 
-        Object userDetails = SecurityContextHolder.getContext().getAuthentication().getDetails();
-        if (userDetails instanceof UserDetails) {
-        	logger.debug(String.format("username %s is logged in", ((UserDetails)userDetails).getUsername()));
-            return ((UserDetails)userDetails).getUsername();
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        if (username != null) {
+        	logger.debug(String.format("username %s is logged in", username));
+            return username;
         }
 
         return null;
@@ -45,6 +46,7 @@ public class SecurityServiceImpl implements SecurityService{
         authenticationManager.authenticate(usernamePasswordAuthenticationToken);
 
         if (usernamePasswordAuthenticationToken.isAuthenticated()) {
+        	logger.debug(usernamePasswordAuthenticationToken.toString());
             SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
             logger.debug(String.format("auto-login %s successfully!", username));
         }
