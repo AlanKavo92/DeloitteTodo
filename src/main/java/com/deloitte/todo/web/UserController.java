@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.deloitte.todo.model.Task;
@@ -18,6 +19,10 @@ import com.deloitte.todo.service.SecurityService;
 import com.deloitte.todo.service.TaskService;
 import com.deloitte.todo.service.UserService;
 import com.deloitte.todo.validator.UserValidator;
+
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Controller
 public class UserController {
@@ -43,6 +48,7 @@ public class UserController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("userForm", new User());
         modelAndView.setViewName("registration");
+
         return modelAndView;
     }
 
@@ -95,9 +101,11 @@ public class UserController {
 
     	User user = userService.findByUsername(securityService.findLoggedInUsername());
     	
-    	 List<Task> taskItems = taskService.getAllTasksForUser(user.getId());
-    	 modelAndView.addObject("toDoItems", taskItems);
-    	 modelAndView.addObject("filter", "all");
+    	List<Task> tasks = taskService.getAllTasksForUser(user.getId());
+    	modelAndView.addObject("tasks", tasks);
+    	modelAndView.addObject("filter", "all");
+    	modelAndView.addObject("stats", determineStats(tasks));
+
 
     	modelAndView.setViewName("todo");
 
@@ -112,9 +120,11 @@ public class UserController {
 
     	User user = userService.findByUsername(securityService.findLoggedInUsername());
     	
-    	 List<Task> taskItems = taskService.getActiveTasksForUser(user.getId());
-    	 modelAndView.addObject("toDoItems", taskItems);
-    	 modelAndView.addObject("filter", "active");
+    	List<Task> tasks = taskService.getActiveTasksForUser(user.getId());
+    	modelAndView.addObject("tasks", tasks);
+    	modelAndView.addObject("filter", "active");
+    	modelAndView.addObject("stats", determineStats(tasks));
+
 
     	modelAndView.setViewName("todo");
 
@@ -129,12 +139,88 @@ public class UserController {
 
     	User user = userService.findByUsername(securityService.findLoggedInUsername());
     	
-    	 List<Task> taskItems = taskService.getCompletedTasksForUser(user.getId());
-    	 modelAndView.addObject("toDoItems", taskItems);
-    	 modelAndView.addObject("filter", "completed");
+    	List<Task> tasks = taskService.getCompletedTasksForUser(user.getId());
+    	modelAndView.addObject("tasks", tasks);
+    	modelAndView.addObject("filter", "completed");
+    	modelAndView.addObject("stats", determineStats(tasks));
+
 
     	modelAndView.setViewName("todo");
 
     	return modelAndView;
+    }
+    
+    @RequestMapping(value = "/insert", method = RequestMethod.POST)
+    public ModelAndView insertTask(@RequestParam String desc, @RequestParam String filter) {
+    	logger.debug("POST request received for /insert");
+
+    	ModelAndView modelAndView = new ModelAndView();
+
+    	taskService.addTask(desc);
+
+    	modelAndView.setViewName("redirect:" + filter);
+        return modelAndView;    
+    }
+
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public ModelAndView updateTask(@RequestParam Long id, @RequestParam String desc, @RequestParam String filter) {
+    	logger.debug("POST request received for /update");
+
+    	ModelAndView modelAndView = new ModelAndView();
+
+    	taskService.updateTask(id, desc);
+
+    	modelAndView.setViewName("redirect:" + filter);
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public ModelAndView deleteTask(@RequestParam Long id, @RequestParam String filter) {
+    	logger.debug("POST request received for /delete");
+
+    	ModelAndView modelAndView = new ModelAndView();
+
+    	taskService.removeTask(id);
+
+    	modelAndView.setViewName("redirect:" + filter);
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/toggleStatus", method = RequestMethod.POST)
+    public ModelAndView toggleStatus(@RequestParam Long id, @RequestParam(required = false) Boolean toggle, @RequestParam String filter) {
+    	logger.debug("POST request received for /toggleStatus");
+
+    	ModelAndView modelAndView = new ModelAndView();
+
+    	taskService.toggleChecked(id, toggle);
+
+    	modelAndView.setViewName("redirect:" + filter);
+        return modelAndView;    
+    }
+
+    private TaskStats determineStats(List<Task> tasks) {
+    	logger.debug("calculating task stats");
+    	TaskStats toDoListStats = new TaskStats();
+
+        for(Task task : tasks) {
+            if(task.isChecked()) {
+                toDoListStats.addCompleted();
+            }
+            else {
+                toDoListStats.addActive();
+            }
+        }
+        return toDoListStats;
+    }
+
+    @Data
+    @Getter
+    @Setter
+    public static class TaskStats {
+        private int active;
+        private int completed;
+        private void addActive() { active++; }
+        private void addCompleted() { completed++; }
+        public int getAll() { return active + completed; }
     }
 }
