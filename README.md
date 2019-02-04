@@ -17,6 +17,14 @@
 ## H2-Console (Available at http://localhost:8008/DeloitteTodo/h2-console)
 ![](https://github.com/AlanKavo92/DeloitteTodo/blob/master/h2-console.png)
 
+## Login
+![](https://github.com/AlanKavo92/DeloitteTodo/blob/master/login.png)
+
+## Register
+![](https://github.com/AlanKavo92/DeloitteTodo/blob/master/register.png)
+
+## Todo
+![](https://github.com/AlanKavo92/DeloitteTodo/blob/master/todo.png)
 
 ## Requirements:
 
